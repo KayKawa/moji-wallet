@@ -2,15 +2,13 @@
 
 ## users テーブル
 
-| Column             | Type       | Options           |
-| ------------------ | ---------- | ----------------- |
-| id                 |            |                   |
-| nickname           | string     | null: false       |
-| birthday           | date       | null: false       |
-| email              | string     | null: false       |
-| encrypted_password | string     | null: false       |
-| profile_id         | references | foreign_key: true |
-| wallet_id          | references | foreign_key: true |
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| id                 |        |             |
+| nickname           | string | null: false |
+| birthday           | date   | null: false |
+| email              | string | null: false |
+| encrypted_password | string | null: false |
 
 ### User-Association
 
