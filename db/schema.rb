@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_27_061905) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_27_192850) do
+  create_table "profiles", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.text "introduction"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
   create_table "users", charset: "utf8", force: :cascade do |t|
     t.string "nickname", null: false
     t.date "birthday", null: false
@@ -36,5 +44,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_27_061905) do
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
+  add_foreign_key "profiles", "users"
   add_foreign_key "wallets", "users"
 end
