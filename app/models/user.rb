@@ -6,5 +6,6 @@ class User < ApplicationRecord
          :recoverable,
          :rememberable,
          :validatable
-  has_one :wallet
+  has_one :wallet, dependent: :destroy
+  accepts_nested_attributes_for :wallet
 end
