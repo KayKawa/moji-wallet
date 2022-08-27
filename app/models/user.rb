@@ -8,4 +8,6 @@ class User < ApplicationRecord
          :validatable
   has_one :wallet, dependent: :destroy
   accepts_nested_attributes_for :wallet
+
+  private
 end
