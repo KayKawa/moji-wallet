@@ -35,6 +35,13 @@
             <%= f.label :password_confirmation,class:'font-medium text-slate-700 pb-2' %><br />
             <%= f.password_field :password_confirmation, autocomplete: "new-password",class:'w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow',placeholder:"password" %>
           </div>
+          <div class="field">
+            <%= f.fields_for :wallet do |f| %>
+              <div class="field">
+                <%= f.label :url %><br />
+                <%= f.text_field :url %>
+              </div>
+            <% end %></div>
           <div class="flex flex-row justify-between">
             <div>
               <label for="remember" class="">
