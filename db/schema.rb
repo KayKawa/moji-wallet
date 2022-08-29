@@ -10,13 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_27_192850) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_29_064136) do
   create_table "profiles", charset: "utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.text "introduction"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "relationships", charset: "utf8", force: :cascade do |t|
+    t.bigint "pay_u_id"
+    t.bigint "beneficiary_u_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["beneficiary_u_id"], name: "index_relationships_on_beneficiary_u_id"
+    t.index ["pay_u_id"], name: "index_relationships_on_pay_u_id"
+  end
+
+  create_table "transactions", charset: "utf8", force: :cascade do |t|
+    t.bigint "relationship_id"
+    t.integer "unit_price", null: false
+    t.integer "quantity", null: false
+    t.integer "total_price", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["relationship_id"], name: "index_transactions_on_relationship_id"
   end
 
   create_table "users", charset: "utf8", force: :cascade do |t|
@@ -45,5 +64,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_27_192850) do
   end
 
   add_foreign_key "profiles", "users"
+  add_foreign_key "relationships", "users", column: "beneficiary_u_id"
+  add_foreign_key "relationships", "users", column: "pay_u_id"
+  add_foreign_key "transactions", "relationships"
   add_foreign_key "wallets", "users"
 end
