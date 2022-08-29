@@ -14,12 +14,8 @@
 
 - has_one :profile
 - has_one :wallet
-- has_many :messages
-
-- has_many :transactions
-- has_many :beneficiaries, through: :transactions, source: :beneficiary
-- has_many :giver_of_transactions, class_name: 'Transaction', foreign_key: 'beneficiary_id'
-- has_many :givers, through: :giver_of_transactions, source: :user
+- has_many :relationships, foreign_key: :pay_u_id
+- has_many :relationships, foreign_key: :beneficiary_u_id
 
 ## profiles テーブル
 
@@ -48,21 +44,33 @@
 
 - belongs_to :user
 
+## relationships テーブル
+
+| Column           | Type       | Options                           |
+| ---------------- | ---------- | --------------------------------- |
+| id               |            |                                   |
+| pay_u_id         | references | foreign_key: { to_table: :users } |
+| beneficiary_u_id | references | foreign_key: { to_table: :users } |
+
+### Relationship-Association
+
+- belongs_to :pay_u, class_name: 'User', foreign_key: :pay_u_id
+- belongs_to :beneficiary_u, class_name: 'User', foreign_key: :beneficiary_u_id
+- has_many :transactions
+
 ## transactions テーブル
 
-| Column         | Type       | Options                           |
-| -------------- | ---------- | --------------------------------- |
-| id             |            |                                   |
-| user_id        | references | foreign_key: true                 |
-| beneficiary_id | references | foreign_key: { to_table: :users } |
-| unit_price     | integer    | null: false                       |
-| quantity       | integer    | null: false                       |
-| total_price    | integer    | null:false                        |
+| Column          | Type       | Options           |
+| --------------- | ---------- | ----------------- |
+| id              |            |                   |
+| relationship_id | references | foreign_key: true |
+| unit_price      | integer    | null: false       |
+| quantity        | integer    | null: false       |
+| total_price     | integer    | null:false        |
 
 ### Transaction-Association
 
-- belongs_to :user
-- belongs_to :beneficiary, class_name: 'User'
+- belongs_to :relationship
 - has_one :message
 
 ## messages テーブル
@@ -76,5 +84,4 @@
 
 ### Message-Association
 
-- belongs_to :user
 - belongs_to :transaction
