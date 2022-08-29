@@ -14,8 +14,8 @@
 
 - has_one :profile
 - has_one :wallet
-- has_many :relationships, foreign_key: :pay_u_id
-- has_many :relationships, foreign_key: :beneficiary_u_id
+- has_many :pay_transactions, class_name: 'Transaction', foreign_key:'pay_u_id'
+- has_many :beneficiary_transactions, class_name: 'Transaction', foreign_key:'beneficiary_u_id'
 
 ## profiles テーブル
 
@@ -44,33 +44,21 @@
 
 - belongs_to :user
 
-## relationships テーブル
-
-| Column           | Type       | Options                           |
-| ---------------- | ---------- | --------------------------------- |
-| id               |            |                                   |
-| pay_u_id         | references | foreign_key: { to_table: :users } |
-| beneficiary_u_id | references | foreign_key: { to_table: :users } |
-
-### Relationship-Association
-
-- belongs_to :pay_u, class_name: 'User', foreign_key: :pay_u_id
-- belongs_to :beneficiary_u, class_name: 'User', foreign_key: :beneficiary_u_id
-- has_many :transactions
-
 ## transactions テーブル
 
-| Column          | Type       | Options           |
-| --------------- | ---------- | ----------------- |
-| id              |            |                   |
-| relationship_id | references | foreign_key: true |
-| unit_price      | integer    | null: false       |
-| quantity        | integer    | null: false       |
-| total_price     | integer    | null:false        |
+| Column           | Type       | Options           |
+| ---------------- | ---------- | ----------------- |
+| id               |            |                   |
+| pay_u_id         | references | foreign_key: true |
+| beneficiary_u_id | references | foreign_key: true |
+| unit_price       | integer    | null: false       |
+| quantity         | integer    | null: false       |
+| total_price      | integer    | null:false        |
 
 ### Transaction-Association
 
-- belongs_to :relationship
+- belongs_to :pay_u, class_name: 'User', foreign_key:'pay_u_id'
+- belongs_to :beneficiary_u, class_name: 'User', foreign_key:'beneficiary_u_id'
 - has_one :message
 
 ## messages テーブル
