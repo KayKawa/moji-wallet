@@ -6,7 +6,7 @@ Rails.application.routes.draw do
              }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root "homes#index"
-  resource :wallets, only: [:show], path: "/:url" do
+  resource :wallet, only: [:show], path: "/:url" do
     resources :transactions, only: %i[index create], path: "/moji"
   end
 
