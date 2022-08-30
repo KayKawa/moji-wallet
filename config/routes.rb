@@ -6,6 +6,8 @@ Rails.application.routes.draw do
              }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root "homes#index"
+  resources :wallets, only: [:index]
+  resources :transaction
   # Defines the root path route ("/")
   # root "articles#index"
 end
