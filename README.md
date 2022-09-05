@@ -38,7 +38,6 @@
 | url     | string     | null: false             |
 | plus    | integer    | null: false, default: 0 |
 | minus   | integer    | null: false, default: 0 |
-| total   | integer    | null: false, default: 0 |
 
 ### Wallet-Association
 
@@ -53,7 +52,6 @@
 | beneficiary_u_id | references | foreign_key: true |
 | unit_price       | integer    | null: false       |
 | quantity         | integer    | null: false       |
-| total_price      | integer    | null:false        |
 
 ### Transaction-Association
 
