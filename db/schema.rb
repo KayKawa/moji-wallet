@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_30_071006) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_05_045748) do
+  create_table "messages", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "transaction_id"
+    t.text "message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["transaction_id"], name: "index_messages_on_transaction_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "profiles", charset: "utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.text "introduction"
@@ -54,6 +64,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_30_071006) do
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
+  add_foreign_key "messages", "transactions"
+  add_foreign_key "messages", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "transactions", "users", column: "beneficiary_u_id"
   add_foreign_key "transactions", "users", column: "pay_u_id"
