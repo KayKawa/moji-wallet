@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_05_045748) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_05_062532) do
   create_table "messages", charset: "utf8", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "transaction_id"
+    t.bigint "trade_id"
     t.text "message", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["transaction_id"], name: "index_messages_on_transaction_id"
+    t.index ["trade_id"], name: "index_messages_on_trade_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -29,15 +29,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_05_045748) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
-  create_table "transactions", charset: "utf8", force: :cascade do |t|
+  create_table "trades", charset: "utf8", force: :cascade do |t|
     t.bigint "pay_u_id"
     t.bigint "beneficiary_u_id"
     t.integer "unit_price", null: false
     t.integer "quantity", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["beneficiary_u_id"], name: "index_transactions_on_beneficiary_u_id"
-    t.index ["pay_u_id"], name: "index_transactions_on_pay_u_id"
+    t.index ["beneficiary_u_id"], name: "index_trades_on_beneficiary_u_id"
+    t.index ["pay_u_id"], name: "index_trades_on_pay_u_id"
   end
 
   create_table "users", charset: "utf8", force: :cascade do |t|
@@ -64,10 +64,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_05_045748) do
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
-  add_foreign_key "messages", "transactions"
+  add_foreign_key "messages", "trades"
   add_foreign_key "messages", "users"
   add_foreign_key "profiles", "users"
-  add_foreign_key "transactions", "users", column: "beneficiary_u_id"
-  add_foreign_key "transactions", "users", column: "pay_u_id"
+  add_foreign_key "trades", "users", column: "beneficiary_u_id"
+  add_foreign_key "trades", "users", column: "pay_u_id"
   add_foreign_key "wallets", "users"
 end

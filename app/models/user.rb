@@ -10,9 +10,9 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :wallet
   has_one :profile, dependent: :destroy
 
-  has_many :pay_transactions, class_name: "Transaction", foreign_key: "pay_u_id"
+  has_many :pay_transactions, class_name: "Trade", foreign_key: "pay_u_id"
   has_many :beneficiary_transactions,
-           class_name: "Transaction",
+           class_name: "Trade",
            foreign_key: "beneficiary_u_id"
 
   private

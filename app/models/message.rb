@@ -1,3 +1,3 @@
 class Message < ApplicationRecord
-  belongs_to :transaction
+  belongs_to :trade
 end
