@@ -17,5 +17,9 @@ class User < ApplicationRecord
            class_name: "Trade",
            foreign_key: "beneficiary_u_id"
 
+  def can_receive_payments?
+    uid? && provider? && access_code? && publishable_key?
+  end
+
   private
 end
