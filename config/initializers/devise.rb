@@ -23,6 +23,14 @@ end
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+  config.omniauth :stripe_connect,
+                  Rails.application.credentials.dig(
+                    :stripe,
+                    :connect_client_id
+                  ),
+                  Rails.application.credentials.dig(:stripe, :private_key),
+                  scope: "read_write",
+                  stripe_landing: "login"
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
