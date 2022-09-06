@@ -5,7 +5,9 @@ class User < ApplicationRecord
          :registerable,
          :recoverable,
          :rememberable,
-         :validatable
+         :validatable,
+         :omniauthable,
+         omniauth_providers: [:stripe_connect]
   has_one :wallet, dependent: :destroy
   accepts_nested_attributes_for :wallet
   has_one :profile, dependent: :destroy
