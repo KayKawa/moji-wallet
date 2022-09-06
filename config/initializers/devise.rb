@@ -23,14 +23,6 @@ end
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  config.omniauth :stripe_connect,
-                  Rails.application.credentials.dig(
-                    :stripe,
-                    :connect_client_id
-                  ),
-                  Rails.application.credentials.dig(:stripe, :private_key),
-                  scope: "read_write",
-                  stripe_landing: "login"
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
@@ -335,4 +327,9 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
+  config.omniauth :stripe_connect,
+                  ENV["STRIPE_CLIENT_ID"],
+                  ENV["STRIPE_SECRET_KEY"],
+                  scope: "read_write",
+                  stripe_landing: "login"
 end
