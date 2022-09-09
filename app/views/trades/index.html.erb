@@ -6,16 +6,16 @@
       <div action="" class="my-10">
         <div class="flex flex-col space-y-5">
           <div class="field">
-            <%= f.label :unit_price, '単価',class:'font-medium text-slate-700 pb-2' %><br/>
-            <%= f.number_field :unit_price,class:'w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow',placeholder:"単価" %>
+            <%= f.label :message, 'メッセージ',class:'font-medium text-slate-700 pb-2' %><br/>
+            <%= f.text_field :message,class:'w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow',placeholder:"メッセージ" %>
           </div>
           <div class="field">
             <%= f.label :quantity, '文字数',class:'font-medium text-slate-700 pb-2' %><br/>
             <%= f.number_field :quantity,class:'w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow',placeholder:"文字数" %>
           </div>
           <div class="field">
-            <%= f.label :message, 'メッセージ',class:'font-medium text-slate-700 pb-2' %><br/>
-            <%= f.text_field :message,class:'w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow',placeholder:"文字数" %>
+            <%= f.label :unit_price, '単価',class:'font-medium text-slate-700 pb-2' %><br/>
+            <%= f.number_field :unit_price,class:'w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow',placeholder:"単価" %>
           </div>
           <button class="w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
