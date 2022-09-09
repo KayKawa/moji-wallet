@@ -91,7 +91,9 @@ module ApplicationHelper
   end
 
   def stripe_connect_button
-    link_to stripe_url, class: "btn-stripe-connect" do
+    link_to stripe_url,
+            class:
+              "shadow bg-indigo-700 text-gray-100 font-bold text-xs py-3 px-10 rounded" do
       content_tag :span, "Connect with Stripe"
     end
   end
