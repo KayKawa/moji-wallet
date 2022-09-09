@@ -1,6 +1,6 @@
 # テーブル設計
 
-## users テーブル
+## USER テーブル
 
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
@@ -9,15 +9,19 @@
 | birthday           | date   | null: false |
 | email              | string | null: false |
 | encrypted_password | string | null: false |
+| uid                |        |             |
+| provider           |        |             |
+| access_code        |        |             |
+| publishable_key    |        |             |
 
 ### User-Association
 
 - has_one :profile
 - has_one :wallet
-- has_many :pay_transactions, class_name: 'Transaction', foreign_key:'pay_u_id'
-- has_many :beneficiary_transactions, class_name: 'Transaction', foreign_key:'beneficiary_u_id'
+- has_many :pay_transactions, class_name: 'Trade', foreign_key:'pay_u_id'
+- has_many :beneficiary_transactions, class_name: 'Trade', foreign_key:'beneficiary_u_id'
 
-## profiles テーブル
+## PROFILE テーブル
 
 | Column       | Type       | Options           |
 | ------------ | ---------- | ----------------- |
@@ -29,7 +33,7 @@
 
 - belongs_to :user
 
-## wallets テーブル
+## WALLET テーブル
 
 | Column  | Type       | Options                 |
 | ------- | ---------- | ----------------------- |
@@ -43,7 +47,7 @@
 
 - belongs_to :user
 
-## transactions テーブル
+## TRADE テーブル
 
 | Column           | Type       | Options           |
 | ---------------- | ---------- | ----------------- |
@@ -61,13 +65,13 @@
 
 ## messages テーブル
 
-| Column         | Type       | Options           |
-| -------------- | ---------- | ----------------- |
-| id             |            |                   |
-| user_id        | references | foreign_key: true |
-| transaction_id | references | foreign_key: true |
-| message        | text       | null: false       |
+| Column   | Type       | Options           |
+| -------- | ---------- | ----------------- |
+| id       |            |                   |
+| user_id  | references | foreign_key: true |
+| trade_id | references | foreign_key: true |
+| message  | text       | null: false       |
 
 ### Message-Association
 
-- belongs_to :transaction
+- belongs_to :trade
