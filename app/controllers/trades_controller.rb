@@ -1,6 +1,6 @@
 class TradesController < ApplicationController
   def index
-    @wallet = Wallet.find_by(url: params[:id])
+    @wallet = Wallet.find_by(url: params[:url])
     @trade_message = TradeMessage.new
   end
 
