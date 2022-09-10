@@ -12,6 +12,25 @@ class TradesController < ApplicationController
     if @trade_message.valid?
       @trade_message.save
       @wallet.update(plus: @wallet.plus.to_i + trade_params[:quantity].to_i)
+      total_price =
+        trade_params[:quantity].to_i * trade_params[:unit_price].to_i
+
+      payment_intent =
+        Stripe::PaymentIntent.create(
+          {
+            amount: total_price,
+            currency: "jpy",
+            customer: current_user.customer_id,
+            transfer_data: {
+              amount: (total_price * 0.95 - total_price * 0.036).to_i,
+              destination: User.find(@wallet_user).uid
+            }
+          }
+        )
+      Stripe::PaymentIntent.confirm(
+        payment_intent.id,
+        { payment_method: "pm_card_visa" }
+      )
       redirect_to wallet_path(url: params[:url])
     else
       render :new
