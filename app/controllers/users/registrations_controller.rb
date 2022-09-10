@@ -26,6 +26,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
       user = User.find(current_user.id)
       @wallet = Wallet.find_by(user_id: user)
     end
+    customer =
+      Stripe::Customer.create(
+        { source: params[:stripeToken], email: resource.email }
+      )
+    user.customer_id = customer.id
+    user.save
+    super
   end
 
   # PUT /resource
