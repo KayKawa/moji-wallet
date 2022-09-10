@@ -97,4 +97,8 @@ module ApplicationHelper
       content_tag :span, "Connect with Stripe"
     end
   end
+
+  def publishable_key
+    @key = ENV["STRIPE_PUBLISHABLE_KEY"]
+  end
 end
