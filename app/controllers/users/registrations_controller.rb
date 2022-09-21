@@ -12,8 +12,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super
+    Stripe.api_key = ENV["STRIPE_SECRET_KEY"]
 
+    customer =
+      Stripe::Customer.create(
+        { name: params[:user][:nickname], email: params[:user][:email] }
+      )
+    params[:user][:customer_id] = customer.id
+
+    super
     # User新規登録時にProfileテーブルに初期データを保存する
     resource.build_profile
     resource.profile.introduction = "プロフィールを編集しよう！"
@@ -25,13 +32,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if user_signed_in?
       user = User.find(current_user.id)
       @wallet = Wallet.find_by(user_id: user)
+      @account_link =
+        Stripe::AccountLink.create(
+          {
+            account: current_user.uid,
+            refresh_url: "http://localhost:3000/users/edit",
+            return_url: "http://localhost:3000/users/edit",
+            type: "account_onboarding"
+          }
+        )
     end
-    customer =
-      Stripe::Customer.create(
-        { source: params[:stripeToken], email: resource.email }
-      )
-    user.customer_id = customer.id
-    user.save
+
     super
   end
 
@@ -63,6 +74,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       keys: [
         :nickname,
         :birthday,
+        :customer_id,
         wallet_attributes: %i[user_id url plus minus total]
       ]
     )
