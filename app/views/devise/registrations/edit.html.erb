@@ -41,12 +41,10 @@
     <% end %>
   </div>
 </div>
-<%publishable_key%>
-<script>
-  var stripe = Stripe('<%= @key  %>');
-  var elements = stripe.elements();
-</script>
-<form id="payment-form">
+<%= link_to @account_link.url do %>
+  リンク
+<% end %>
+<%# <form id="payment-form">
   <div class="form-row">
     <label for="card-element">
       クレジット・デビットカード番号
@@ -114,4 +112,4 @@
   // Submit します
   form.submit();
   }
-</script>
+</script> %>
