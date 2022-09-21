@@ -8,30 +8,45 @@ class TradesController < ApplicationController
     @wallet = Wallet.find_by(url: params[:url])
     @wallet_user = @wallet.user_id
     @trade_message = TradeMessage.new(trade_params)
+    total_price = trade_params[:quantity].to_i * trade_params[:unit_price].to_i
 
     if @trade_message.valid?
       @trade_message.save
       @wallet.update(plus: @wallet.plus.to_i + trade_params[:quantity].to_i)
-      total_price =
-        trade_params[:quantity].to_i * trade_params[:unit_price].to_i
 
-      payment_intent =
-        Stripe::PaymentIntent.create(
+      product = Stripe::Product.create({ name: "#{@wallet.url}さんへMOJIを贈る" })
+      price =
+        Stripe::Price.create(
+          { product: product.id, unit_amount: total_price, currency: "jpy" }
+        )
+
+      session =
+        Stripe::Checkout::Session.create(
           {
-            amount: total_price,
-            currency: "jpy",
             customer: current_user.customer_id,
-            transfer_data: {
-              amount: (total_price * 0.95 - total_price * 0.036).to_i,
-              destination: User.find(@wallet_user).uid
+            client_reference_id: current_user.id,
+            success_url: "http://localhost:3000",
+            cancel_url: "http://localhost:3000",
+            payment_method_types: %w[card konbini],
+            mode: "payment",
+            line_items: [{ price: price.id, quantity: 1 }],
+            payment_method_options: {
+              card: {
+                setup_future_usage: "on_session"
+              }
+            },
+            payment_intent_data: {
+              application_fee_amount:
+                (total_price * 0.05 + total_price * 0.036).to_i,
+              transfer_data: {
+                destination: User.find(@wallet_user).uid
+              }
             }
           }
         )
-      Stripe::PaymentIntent.confirm(
-        payment_intent.id,
-        { payment_method: "pm_card_visa" }
-      )
-      redirect_to wallet_path(url: params[:url])
+
+      redirect_to session.url, allow_other_host: true
+      flash[:notice] = "MOJIを贈りました。"
     else
       render :new
     end
