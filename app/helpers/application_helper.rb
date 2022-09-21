@@ -87,7 +87,7 @@ module ApplicationHelper
   end
 
   def stripe_url
-    "https://connect.stripe.com/oauth/authorize?response_type=code&client_id=#{ENV["STRIPE_CLIENT_ID"]}&scope=read_write"
+    "https://connect.stripe.com/oauth/authorize?response_type=code&client_id=#{ENV["STRIPE_CLIENT_ID"]}&stripe_user[email]=#{current_user.email}&stripe_user[url]=http://localhost:3000/#{@wallet.url}&scope=read_write"
   end
 
   def stripe_connect_button
@@ -99,6 +99,9 @@ module ApplicationHelper
   end
 
   def publishable_key
-    @key = ENV["STRIPE_PUBLISHABLE_KEY"]
+    @p_key = ENV["STRIPE_PUBLISHABLE_KEY"]
+  end
+  def secret_key
+    @s_key = ENV["STRIPE_SECRET_KEY"]
   end
 end

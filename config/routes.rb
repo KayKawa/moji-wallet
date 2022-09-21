@@ -10,7 +10,4 @@ Rails.application.routes.draw do
   resource :wallet, only: [:show], path: "/:url" do
     resources :trades, only: %i[index create], path: "/moji"
   end
-
-  # Defines the root path route ("/")
-  # root "articles#index"
 end
