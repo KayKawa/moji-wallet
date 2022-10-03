@@ -11,7 +11,8 @@ class User < ApplicationRecord
   has_one :wallet, dependent: :destroy
   accepts_nested_attributes_for :wallet
   has_one :profile, dependent: :destroy
-  has_many :project, dependent: :destroy
+  has_many :projects, dependent: :destroy
+  has_many :return_contents, dependent: :destroy
   #MOJI支払ユーザー/受取ユーザー
   has_many :pay_moji_trades, class_name: "Moji_trade", foreign_key: "pay_u_id"
   has_many :beneficiary_moji_trades,
