@@ -1,0 +1,2 @@
+class CoinTrade < ApplicationRecord
+end

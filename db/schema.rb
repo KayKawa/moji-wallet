@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_03_061811) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_03_062330) do
+  create_table "coin_trades", charset: "utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "coin_id"
+    t.integer "quantity", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coin_id"], name: "index_coin_trades_on_coin_id"
+    t.index ["user_id"], name: "index_coin_trades_on_user_id"
+  end
+
   create_table "messages", charset: "utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "moji_trade_id"
@@ -99,6 +109,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_03_061811) do
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
+  add_foreign_key "coin_trades", "users"
+  add_foreign_key "coin_trades", "users", column: "coin_id"
   add_foreign_key "messages", "moji_trades"
   add_foreign_key "messages", "users"
   add_foreign_key "moji_trades", "users", column: "beneficiary_u_id"
