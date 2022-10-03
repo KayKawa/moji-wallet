@@ -20,7 +20,7 @@
 ### User-Association
 
 - has_one :profile
-- has_one :project
+- has_many :project
 - has_many :return_trades
 - has_many :return_contents
   <!-- MOJI支払ユーザー/受取ユーザー -->
