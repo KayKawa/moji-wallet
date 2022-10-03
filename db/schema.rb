@@ -10,15 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_09_060201) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_03_053303) do
   create_table "messages", charset: "utf8", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "trade_id"
+    t.bigint "moji_trade_id"
     t.text "message", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["trade_id"], name: "index_messages_on_trade_id"
+    t.index ["moji_trade_id"], name: "index_messages_on_moji_trade_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "moji_trades", charset: "utf8", force: :cascade do |t|
+    t.bigint "pay_u_id"
+    t.bigint "beneficiary_u_id"
+    t.integer "unit_price", null: false
+    t.integer "quantity", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["beneficiary_u_id"], name: "index_moji_trades_on_beneficiary_u_id"
+    t.index ["pay_u_id"], name: "index_moji_trades_on_pay_u_id"
   end
 
   create_table "profiles", charset: "utf8", force: :cascade do |t|
@@ -27,17 +38,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_060201) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
-  end
-
-  create_table "trades", charset: "utf8", force: :cascade do |t|
-    t.bigint "pay_u_id"
-    t.bigint "beneficiary_u_id"
-    t.integer "unit_price", null: false
-    t.integer "quantity", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["beneficiary_u_id"], name: "index_trades_on_beneficiary_u_id"
-    t.index ["pay_u_id"], name: "index_trades_on_pay_u_id"
   end
 
   create_table "users", charset: "utf8", force: :cascade do |t|
@@ -69,10 +69,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_09_060201) do
     t.index ["user_id"], name: "index_wallets_on_user_id"
   end
 
-  add_foreign_key "messages", "trades"
+  add_foreign_key "messages", "moji_trades"
   add_foreign_key "messages", "users"
+  add_foreign_key "moji_trades", "users", column: "beneficiary_u_id"
+  add_foreign_key "moji_trades", "users", column: "pay_u_id"
   add_foreign_key "profiles", "users"
-  add_foreign_key "trades", "users", column: "beneficiary_u_id"
-  add_foreign_key "trades", "users", column: "pay_u_id"
   add_foreign_key "wallets", "users"
 end

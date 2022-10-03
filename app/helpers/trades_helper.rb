@@ -1,2 +1,2 @@
-module TradesHelper
+module MojiTradesHelper
 end

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class TradesControllerTest < ActionDispatch::IntegrationTest
+class MojiTradesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

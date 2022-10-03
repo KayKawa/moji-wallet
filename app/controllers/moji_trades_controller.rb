@@ -1,4 +1,4 @@
-class TradesController < ApplicationController
+class MojiTradesController < ApplicationController
   def index
     @wallet = Wallet.find_by(url: params[:url])
     @trade_message = TradeMessage.new

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class TradeTest < ActiveSupport::TestCase
+class MojiTradeTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

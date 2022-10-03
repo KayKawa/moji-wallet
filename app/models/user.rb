@@ -11,10 +11,10 @@ class User < ApplicationRecord
   has_one :wallet, dependent: :destroy
   accepts_nested_attributes_for :wallet
   has_one :profile, dependent: :destroy
-
-  has_many :pay_transactions, class_name: "Trade", foreign_key: "pay_u_id"
-  has_many :beneficiary_transactions,
-           class_name: "Trade",
+  #MOJI支払ユーザー/受取ユーザー
+  has_many :pay_moji_trades, class_name: "Moji_trade", foreign_key: "pay_u_id"
+  has_many :beneficiary_moji_trades,
+           class_name: "Moji_trade",
            foreign_key: "beneficiary_u_id"
 
   def can_receive_payments?
