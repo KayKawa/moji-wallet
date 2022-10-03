@@ -20,6 +20,10 @@ class User < ApplicationRecord
            class_name: "Moji_trade",
            foreign_key: "beneficiary_u_id"
 
+  #  COIN受取ユーザー/コイン持ち主ユーザー
+  has_many :coin_trades
+  has_many :coin_trades, class_name: "Coin_trade", foreign_key: "coin_id"
+
   def can_receive_payments?
     uid? && provider? && access_code? && publishable_key?
   end
