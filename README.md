@@ -83,18 +83,6 @@
 - belongs_to :user
 - belongs_to :return_trade
 
-## Return_trade テーブル/会員のリターン取引情報
-
-| Column            | Type       | Options           |
-| ----------------- | ---------- | ----------------- |
-| id                |            |                   |
-| user_id           | references | foreign_key: true |
-| return_content_id | references | foreign_key: true |
-
-### Profile-Association
-
-- belongs_to :user
-
 ## Coin_trade テーブル/会員のコイン情報
 
 | Column   | Type       | Options           |
