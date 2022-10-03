@@ -21,6 +21,14 @@
             <%= f.email_field :email, autofocus: true, autocomplete: "email",class:'w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow',placeholder:"email" %>
           </div>
           <div class="field">
+            <%= f.label :wallet_url, 'wallet_url',class:'font-medium text-slate-700 pb-2' %><br/>
+            <%= f.text_field :wallet_url,class:'w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow',placeholder:"wallet_url" %>
+          </div>
+          <div class="field">
+            <%= f.label :coin_name, 'coin_name',class:'font-medium text-slate-700 pb-2' %><br/>
+            <%= f.text_field :coin_name,class:'w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow',placeholder:"coin_name" %>
+          </div>
+          <div class="field">
             <%= f.label :birthday, 'birthday',class:'font-medium text-slate-700 pb-2' %>
             <%= f.date_field :birthday,class:'w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow' %>
           </div>
@@ -35,13 +43,6 @@
             <%= f.label :password_confirmation,class:'font-medium text-slate-700 pb-2' %><br />
             <%= f.password_field :password_confirmation, autocomplete: "new-password",class:'w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow',placeholder:"password" %>
           </div>
-          <div class="field">
-            <%= f.fields_for :wallet do |f| %>
-              <div class="field">
-                <%= f.label :url %><br />
-                <%= f.text_field :url %>
-              </div>
-            <% end %></div>
           <div class="flex flex-row justify-between">
             <div>
               <label for="remember" class="">

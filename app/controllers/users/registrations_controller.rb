@@ -7,7 +7,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     @user = User.new
-    @wallet = @user.build_wallet
   end
 
   # POST /resource
@@ -31,7 +30,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def edit
     if user_signed_in?
       user = User.find(current_user.id)
-      @wallet = Wallet.find_by(user_id: user)
       @account_link =
         Stripe::AccountLink.create(
           {
@@ -71,12 +69,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(
       :sign_up,
-      keys: [
-        :nickname,
-        :birthday,
-        :customer_id,
-        wallet_attributes: %i[user_id url plus minus total]
-      ]
+      keys: %i[nickname birthday wallet_url coin_name customer_id]
     )
   end
 
