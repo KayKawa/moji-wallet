@@ -1,0 +1,2 @@
+class ReturnContent < ApplicationRecord
+end
