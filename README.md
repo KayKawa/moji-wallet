@@ -11,10 +11,11 @@
 | wallet_url         | string | null: false |
 | coin_name          | string | null: false |
 | encrypted_password | string | null: false |
-| uid                |        |             |
-| provider           |        |             |
-| access_code        |        |             |
-| publishable_key    |        |             |
+| uid                | string |             |
+| provider           | string |             |
+| access_code        | string |             |
+| publishable_key    | string |             |
+| customer_id        | string |             |
 
 ### User-Association
 
